@@ -1,0 +1,14 @@
+#date-time-locale, #date-time-default {
+    font: 100%/1.6 palatino, georgia, serif;
+    background-color: lightgray;
+}
+
+#simple-digital-clock {
+    font-size: 75px;
+    width: 480px;
+    margin: 25px;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
