@@ -4,11 +4,11 @@ function updateDateTime() {
     // Create a single `Date` object
      now = new Date();
 
-    // get the current date and time as a string
-    const currentDateTimeLocale = Intl.DateTimeFormat().format(now);
+    // Get formatted date and time strings
+    const currentDateTimeLocale = now.toLocaleString();
     const currentDateTimeDefault = now.toString();
 
-    // update the `textContent` property of the `span` element with the `id` of `datetime`
+    // Update element contents
     document.getElementById("date-time-locale").textContent = currentDateTimeLocale;
     document.getElementById("date-time-default").textContent = currentDateTimeDefault;
   }
