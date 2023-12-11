@@ -1,53 +1,52 @@
 /* Display current date and time */
-// create a function to update the date and time
+// Update date and time
 function updateDateTime() {
-    // create a new `Date` object
+    // Create a single `Date` object
      now = new Date();
 
     // get the current date and time as a string
-    const currentDateTimeLocale = now.toLocaleString();
+    const currentDateTimeLocale = Intl.DateTimeFormat().format(now);
     const currentDateTimeDefault = now.toString();
 
     // update the `textContent` property of the `span` element with the `id` of `datetime`
-    document.querySelector('#date-time-locale').textContent = currentDateTimeLocale;
-    document.querySelector('#date-time-default').textContent = currentDateTimeDefault;
+    document.getElementById("date-time-locale").textContent = currentDateTimeLocale;
+    document.getElementById("date-time-default").textContent = currentDateTimeDefault;
   }
 
-  // call the `updateDateTime` function every second
+  // call the `updateDateTime` function every seconds
   setInterval(updateDateTime, 1000);
 
 /* Simple digital clock */
-// Calling showTime function at every second
+// Calling showTime function at every seconds
 setInterval(showTime, 1000);
  
 // Defining showTime funcion
 function showTime() {
-    // Getting current time and date
-    let hour = now.getHours();
-    let min = now.getMinutes();
-    let sec = now.getSeconds();
-    am_pm = "AM";
+    const now = new Date();
+    // Extract time components
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+
+    // Determine AM/PM
+    const amPm = (hours >= 12) ? "PM" : "AM";
+
+    // Convert to 12-hours format and add padding
+    let twelveHour = hours;
+    if (hours > 12) twelveHour -=12;
+    if (twelveHour === 0) twelveHour = 12;
+    twelveHour = (twelveHour < 10) ? `0${twelveHour}` : twelveHour;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
  
-    // Setting time for 12 Hrs format
-    if (hour >= 12) {
-        if (hour > 12) hour -= 12;
-        am_pm = "PM";
-    } else if (hour == 0) {
-        hr = 12;
-        am_pm = "AM";
-    }
- 
-    hour = hour < 10 ? "0" + hour : hour;
-    min = min < 10 ? "0" + min : min;
-    sec = sec < 10 ? "0" + sec : sec;
- 
-    let currentTime = hour + ":" + min + ":" + sec + " " + am_pm;
- 
-    // Displaying the time
-    document.getElementById("simple-digital-clock").innerHTML = currentTime;
+    // Assemble and display formatted time
+    const currentTime = `${twelveHour}:${minutes}:${seconds} ${amPm}`;
+    document.getElementById("simple-digital-clock").textContent = currentTime;
 }
- 
+// Show time initially
 showTime();
 
 
-/* Wall clock */
+/* Wall clock
+Reference source: geeksforgeeks.org/how-to-create-analog-clock-using-html-css-and-javascript/
+*/
